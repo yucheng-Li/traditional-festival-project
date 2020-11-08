@@ -2,7 +2,7 @@
 <div>
     this is article
     <div class="article-content">
-        <router-link to="/list/content" v-for="item in article_list" :key="item.num">
+        <router-link :to="'/list/content'+item.num" v-for="item in article_list" :key="item.num">
             <div class="article-toContent article-item">
                 Go to Content{{item.num}}
             </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-export default {
+export default {    
     data() {
         return {
             article_list:[

@@ -28,7 +28,7 @@ export default {
             default:function(){
                 return {
                     imgs:["https://fenews.org/static/9f3c4c0fe8174ddbf6fb22e3a94e0dec/41438/5.jpg",
-                        "https://upload-images.jianshu.io/upload_images/3914919-2f021369b1e458bc.png?imageMogr2/auto-orient/strip|imageView2/2/w/758/format/webp",
+                        "https://seopic.699pic.com/photo/50037/1174.jpg_wh1200.jpg",
                         "http://img2.1sucai.com/181006/330816-1Q006164G665.jpg"
                     ],     //图片地址
                     speed:3000,  //轮播时间

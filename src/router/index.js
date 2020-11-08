@@ -18,9 +18,10 @@ export default new Router({
             component:List
         },
         {
-            path:'/list/content',
+            path:'/list/content:id',
             name:'Content',
-            component:Content
-        }
+            component:Content,
+            props:true
+        },
     ]
 })
