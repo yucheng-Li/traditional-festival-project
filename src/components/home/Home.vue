@@ -1,9 +1,6 @@
 <template>
 <div>
-    <Lunbotu/>
-    <router-link to="/list">
-        <!-- <input type="button" value="Go to list"> -->
-    </router-link>
+    <Lunbotu></Lunbotu>
 </div>
 </template>
 

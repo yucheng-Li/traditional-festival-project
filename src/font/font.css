@@ -1,0 +1,18 @@
+@font-face{
+    font-family: "font-benmo";
+    src: url(./本墨今宋.TTF);
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: "font-xingkai";
+    src: url(./4117_方正行楷_GBK.TTF);
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: "font-pang";
+    src: url(./4098_方正胖娃_GBK.TTF);
+    font-weight: normal;
+    font-style: normal;
+}

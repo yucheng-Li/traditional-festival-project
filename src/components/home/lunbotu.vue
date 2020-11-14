@@ -1,37 +1,54 @@
 <template>
+<div class="lunbotu-bg" :style="{backgroundImage: 'url(' +bg + ')'}">
     <div class="swiper-certify">
+        <div class="trun-left" @click="slideClick('left')"></div>
+        
         <ul class="swiper-certif-list"
-            @mouseenter="onMouseEnter"
-            @mouseleave="onMouseLeave"
+           
+            id="if-img"
         >
             <li
             v-for="(item,index) in swiperOption.imgs"
             :key="index"
             :class="classRender[index] || leftHide"
-            @click="slideClick(classRender[index])" 
+             
             class="YcenterPosition"
-            >
-                <img :src="item">
+            
+            >   
+                <div class="if-img">   
+                    <i class="iconfont icon-icon_play iconfont-ps if-img-hidden" id="icon-click" v-on:click="videoPlay()"></i>
+                </div>
+                <video width="100%" height="100%"  id="myAudio" v-on:click="videoPlay()">
+                    <source :src=item type="video/mp4">
+                </video>
             </li>
         </ul>
+        <div class="trun-right"  @click="slideClick('right')">
+            
+        </div>
     </div>
+</div>
 </template>
  
 <script>
-import { clearInterval } from 'timers';
- 
- 
+// import { clearInterval } from 'timers';
+import $ from 'jquery'
+import '../../font/icon/iconfont.css'
+
+
 export default {
     props:{
         swiperOption:{
             type:Object,
-            default:function(){
+            default:function(){require('../../../public/video/中秋.mp4')
                 return {
-                    imgs:["https://fenews.org/static/9f3c4c0fe8174ddbf6fb22e3a94e0dec/41438/5.jpg",
-                        "https://seopic.699pic.com/photo/50037/1174.jpg_wh1200.jpg",
-                        "http://img2.1sucai.com/181006/330816-1Q006164G665.jpg"
-                    ],     //图片地址
-                    speed:3000,  //轮播时间
+                    imgs:[
+                        require('../../../public/video/中秋.mp4'),
+                        require('../../../public/video/端午.mp4'),
+                        require('../../../public/video/元宵.mp4'),
+                        require('../../../public/video/重阳.mp4'),
+                        require('../../../public/video/清明.mp4')],     //图片地址
+                    speed:5000,  //轮播时间
                     startIndex:0    //开始图片
                 }
             }
@@ -40,12 +57,14 @@ export default {
     data(){
         var me = this;
         var imgs = me.swiperOption.imgs || [];
-        var max =   imgs.length;
+        var max =  imgs.length;
         var speed = me.swiperOption.speed || 3000;
         var startIndex = me.swiperOption.startIndex || 0;
         var hideNum = Math.floor((max - 5)/2);
  
         return {
+            bg:require('../../../public/images/video-bg.jpg'),
+            flag:true,
             max:max,
             speed:speed,
             index:startIndex,
@@ -56,7 +75,7 @@ export default {
             rightHide:'p7',
             hideNum:hideNum,
             classRender:[],
-            timerT:null
+            // timerT:null
         }
     },
     watch:{
@@ -69,12 +88,38 @@ export default {
         }
     },
     created(){
-         
     },
-    mounted(){
+    mounted(){  
         this.init();
+        
+    },
+    beforeUpdate() {
+        
+    },
+    updated() {
+        $(function(){
+            $(".p4").hover(function(){
+                $(".p4 i").removeClass("if-img-hidden")
+            },
+            function(){
+                $(".p4 i").addClass("if-img-hidden")
+                }
+            )
+        })
     },
     methods:{
+        videoPlay(){
+            if(this.flag){
+                $(".p4 video")[0].play()
+                $(".p4 i").removeClass("icon-icon_play")
+                $(".p4 i").addClass("icon-ai07")
+            }else{
+                $(".p4 video")[0].pause()
+                $(".p4 i").removeClass("icon-ai07")
+                $(".p4 i").addClass("icon-icon_play")
+            }
+            this.flag = !this.flag
+        },
         init(){
             var me = this;
             if(me.max <= 5){
@@ -174,24 +219,39 @@ export default {
             me.$emit("change",me.index);
         },
         slideClick(cls){
+
             var self = this;
-            if(cls == self.classLeft[0] || cls == self.classLeft[1]){
+            if(cls == "left"){
                 //左
                 self.change(1)
+                $("video").each(function(index,item){
+                    item.pause()
+                })
+                $(".p5 i").removeClass("icon-ai07")
+                $(".p5 i").addClass("icon-icon_play")
+                this.flag = true
             }
-            if(cls == self.classRight[0] || cls == self.classRight[1]){
+            if(cls == "right"){
                 //右
                 self.change(-1)
+                $("video").each(function(index,item){
+                    item.pause()
+                })
+                $(".p3 i").removeClass("icon-ai07")
+                $(".p3 i").addClass("icon-icon_play")
+                this.flag = true
+
             }
         },
         onMouseEnter(){
-            clearInterval(this.timerT);
+            
         },
         onMouseLeave(){
-            this.createTimer(self);
+           
         }
  
     }
 }
+
 </script>
 <style lang="scss" scoped src="./swiper-certify.scss"></style>
